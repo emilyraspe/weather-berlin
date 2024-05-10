@@ -1,3 +1,4 @@
+import Temperature from "@/components/Temperature";
 import { fetchWeatherApi } from "openmeteo";
 import { useState, useEffect } from "react";
 
@@ -10,7 +11,7 @@ export default function Home() {
         latitude: 52.5244,
         longitude: 13.4105,
         start_date: "2004-01-01",
-        end_date: "2004-01-02",
+        end_date: "2005-01-01",
         daily: "temperature_2m_mean",
         timezone: "GMT",
       };
@@ -63,12 +64,24 @@ export default function Home() {
     console.log("Updated allData:", allData);
   }, [allData]);
 
+  const temperature = allData.daily.temperature2mMean;
+
   return (
     <div>
-      {allData.daily.time &&
-        allData.daily.time.map((time, index) => (
-          <p key={index}>{allData.daily.temperature2mMean[index]}</p>
-        ))}
+      <h1>Weatherchange in Berlin</h1>
+      <div className="temperature-container">
+        {allData.daily.time &&
+          allData.daily.time.map((time, index) => (
+            <div key={index}>
+              {/* Render Temperature component for each temperature */}
+              <Temperature
+                temperature={allData.daily.temperature2mMean[index]}
+              />
+              {/* Display temperature value */}
+              {/*  <p>{allData.daily.temperature2mMean[index]}</p> */}
+            </div>
+          ))}
+      </div>
     </div>
   );
 }

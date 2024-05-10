@@ -1,0 +1,42 @@
+.temperature-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 5px;
+}
+
+.color1 {
+  width: 5px;
+  height: 5px;
+  border-radius: 50px;
+  background-color: #90f3ff;
+}
+
+.color2 {
+  width: 8px;
+  height: 8px;
+  border-radius: 50px;
+  background-color: #197bbd;
+}
+
+.color3 {
+  width: 10px;
+  height: 10px;
+  border-radius: 50px;
+  background-color: #125e8a;
+}
+
+.color4 {
+  width: 13px;
+  height: 13px;
+  border-radius: 50px;
+  background-color: #ff9eca;
+}
+
+.color5 {
+  width: 15px;
+  height: 15px;
+  border-radius: 50px;
+  background-color: #f72585;
+}
