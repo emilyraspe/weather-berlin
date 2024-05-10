@@ -1,6 +1,7 @@
 import Temperature from "@/components/Temperature";
 import { fetchWeatherApi } from "openmeteo";
 import { useState, useEffect } from "react";
+import React from "react";
 
 export default function Home() {
   const [allData, setAllData] = useState({ daily: {} });
@@ -11,10 +12,9 @@ export default function Home() {
       const params = {
         latitude: 52.5244,
         longitude: 13.4105,
-        start_date: "2019-01-01",
-        end_date: "2024-01-01",
+        start_date: "2016-01-01",
+        end_date: "2023-12-31",
         daily: "temperature_2m_mean",
-        timezone: "GMT",
       };
       const url = "https://archive-api.open-meteo.com/v1/archive";
       const responses = await fetchWeatherApi(url, params);
@@ -38,7 +38,6 @@ export default function Home() {
 
       const daily = response.daily()!;
 
-      // Note: The order of weather variables in the URL query and the indices below need to match!
       const weatherData = {
         daily: {
           time: range(
@@ -50,14 +49,6 @@ export default function Home() {
         },
       };
       setAllData(weatherData);
-
-      // `weatherData` now contains a simple structure with arrays for datetime and weather data
-      /*  for (let i = 0; i < weatherData.daily.time.length; i++) {
-    console.log(
-      weatherData.daily.time[i].toISOString(),
-      weatherData.daily.temperature2mMean[i]
-    );
-  } */
     }
     fetch();
   }, []);
@@ -65,24 +56,36 @@ export default function Home() {
     console.log("Updated allData:", allData);
   }, [allData]);
 
+  const temperaturesByYear = {};
+  if (allData.daily.time && allData.daily.temperature2mMean) {
+    allData.daily.time.forEach((time, index) => {
+      const year = time.getFullYear();
+      if (!temperaturesByYear[year]) {
+        temperaturesByYear[year] = [];
+      }
+      temperaturesByYear[year].push(allData.daily.temperature2mMean[index]);
+    });
+  }
+
   const temperature = allData.daily.temperature2mMean;
 
   return (
     <div>
       <div className="header">
-        <h1>{allData.daily.time?.length} Days in Berlin</h1>
-        <h3>2019 – 2024</h3>
+        <h1>Weatherchange in Berlin</h1>
+        <h4>Data from {allData.daily.time?.length} days</h4>
       </div>
       <div className="temperature-container">
-        {allData.daily.time &&
-          allData.daily.time.map((time, index) => (
-            <div key={index}>
-              {/* Render Temperature component for each temperature */}
-              <Temperature
-                temperature={allData.daily.temperature2mMean[index]}
-              />
-            </div>
-          ))}
+        {Object.keys(temperaturesByYear).map((year) => (
+          <React.Fragment key={year}>
+            <p className="year">{year} ⭢</p>
+            {temperaturesByYear[year].map((temperature, index) => (
+              <div key={index}>
+                <Temperature temperature={temperature} />
+              </div>
+            ))}
+          </React.Fragment>
+        ))}
       </div>
     </div>
   );
