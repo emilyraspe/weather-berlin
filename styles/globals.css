@@ -1,42 +1,59 @@
+@import url("https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap");
+
+* {
+  font-family: "Reddit Sans", sans-serif;
+  margin: 0px;
+  padding: 0px;
+}
+
+.header {
+  margin: 20px auto;
+  text-align: center;
+  padding: 20px;
+  border-bottom: 1px solid #fe0072;
+  width: 60%;
+}
+
 .temperature-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 5px;
+  width: 60%;
+  margin: 50px auto;
+  padding: 15px;
+}
+
+.temperature {
+  border-radius: 50px;
 }
 
 .color1 {
   width: 5px;
   height: 5px;
-  border-radius: 50px;
   background-color: #90f3ff;
 }
 
 .color2 {
-  width: 8px;
-  height: 8px;
-  border-radius: 50px;
-  background-color: #197bbd;
+  width: 10px;
+  height: 10px;
+  background-color: #002bff;
 }
 
 .color3 {
-  width: 10px;
-  height: 10px;
-  border-radius: 50px;
-  background-color: #125e8a;
+  width: 15px;
+  height: 15px;
+  background-color: #00a2ff;
 }
 
 .color4 {
-  width: 13px;
-  height: 13px;
-  border-radius: 50px;
-  background-color: #ff9eca;
+  width: 20px;
+  height: 20px;
+  background-color: #ff86bd;
 }
 
 .color5 {
-  width: 15px;
-  height: 15px;
-  border-radius: 50px;
-  background-color: #f72585;
+  width: 25px;
+  height: 25px;
+  background-color: #fe0072;
 }

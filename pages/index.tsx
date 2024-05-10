@@ -4,14 +4,15 @@ import { useState, useEffect } from "react";
 
 export default function Home() {
   const [allData, setAllData] = useState({ daily: {} });
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     async function fetch() {
       const params = {
         latitude: 52.5244,
         longitude: 13.4105,
-        start_date: "2004-01-01",
-        end_date: "2005-01-01",
+        start_date: "2019-01-01",
+        end_date: "2024-01-01",
         daily: "temperature_2m_mean",
         timezone: "GMT",
       };
@@ -68,7 +69,10 @@ export default function Home() {
 
   return (
     <div>
-      <h1>Weatherchange in Berlin</h1>
+      <div className="header">
+        <h1>{allData.daily.time?.length} Days in Berlin</h1>
+        <h3>2019 – 2024</h3>
+      </div>
       <div className="temperature-container">
         {allData.daily.time &&
           allData.daily.time.map((time, index) => (
@@ -77,8 +81,6 @@ export default function Home() {
               <Temperature
                 temperature={allData.daily.temperature2mMean[index]}
               />
-              {/* Display temperature value */}
-              {/*  <p>{allData.daily.temperature2mMean[index]}</p> */}
             </div>
           ))}
       </div>
