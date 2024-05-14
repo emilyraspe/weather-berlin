@@ -10,8 +10,17 @@ p {
   font-size: 12px;
 }
 
+a {
+  text-decoration: none;
+}
+
 .header {
   margin: 20px auto;
+  width: 55%;
+}
+
+.container {
+  margin: 30px auto;
   width: 55%;
 }
 

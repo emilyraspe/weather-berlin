@@ -1,11 +1,13 @@
-import Temperature from "@/components/Temperature";
+import Legend from "@/components/Legend/Legend";
+import Navigation from "@/components/Navigation/Navigation";
+import Summary from "@/components/Summary/Summary";
+import Temperature from "@/components/Temperature/Temperature";
 import { fetchWeatherApi } from "openmeteo";
 import { useState, useEffect } from "react";
 import React from "react";
 
 export default function Home() {
   const [allData, setAllData] = useState({ daily: {} });
-  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     async function fetch() {
@@ -31,10 +33,6 @@ export default function Home() {
 
       // Attributes for timezone and location
       const utcOffsetSeconds = response.utcOffsetSeconds();
-      const timezone = response.timezone();
-      const timezoneAbbreviation = response.timezoneAbbreviation();
-      const latitude = response.latitude();
-      const longitude = response.longitude();
 
       const daily = response.daily()!;
 
@@ -56,7 +54,7 @@ export default function Home() {
     console.log("Updated allData:", allData);
   }, [allData]);
 
-  const temperaturesByYear = {};
+  const temperaturesByYear = [];
   if (allData.daily.time && allData.daily.temperature2mMean) {
     allData.daily.time.forEach((time, index) => {
       const year = time.getFullYear();
@@ -69,24 +67,42 @@ export default function Home() {
 
   const temperature = allData.daily.temperature2mMean;
 
+  const means = [];
+
+  temperaturesByYear.forEach((yearTemperatures) => {
+    let sum = 0;
+    yearTemperatures.forEach((temperature) => {
+      sum += temperature;
+    });
+    const mean = sum / yearTemperatures.length;
+    means.push(mean);
+  });
+
+  console.log("Means for each year:", means);
+
   return (
-    <div>
-      <div className="header">
-        <h1>Weatherchange in Berlin</h1>
-        <h4>Data from {allData.daily.time?.length} days</h4>
-      </div>
-      <div className="temperature-container">
-        {Object.keys(temperaturesByYear).map((year) => (
-          <React.Fragment key={year}>
-            <p className="year">{year} ⭢</p>
-            {temperaturesByYear[year].map((temperature, index) => (
-              <div key={index}>
-                <Temperature temperature={temperature} />
-              </div>
-            ))}
-          </React.Fragment>
-        ))}
-      </div>
-    </div>
+    <>
+      <Navigation />
+      <main>
+        <div className="header">
+          <h1 id="home">Weatherchange in Berlin</h1>
+          <h4>Data from {allData.daily.time?.length} days</h4>
+        </div>
+        <div className="temperature-container">
+          {Object.keys(temperaturesByYear).map((year) => (
+            <React.Fragment key={year}>
+              <p className="year">{year} ⭢</p>
+              {temperaturesByYear[year].map((temperature, index) => (
+                <div key={index}>
+                  <Temperature temperature={temperature} />
+                </div>
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
+        <Legend />
+        <Summary temperature={temperature} means={means} />
+      </main>
+    </>
   );
 }

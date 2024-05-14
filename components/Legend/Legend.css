@@ -1,0 +1,5 @@
+.legends-container {
+  display: flex;
+  gap: 10px;
+  padding: 20px 0px;
+}
