@@ -5,19 +5,19 @@ export default function Legend() {
 
       <div className="legends-container">
         <div className="temperature color1"></div>
-        <p>Less than 0° Celcius </p>
+        <p>Less than 0 °C </p>
 
         <div className="temperature color2"></div>
-        <p>0 – 5° Celcius </p>
+        <p>0 – 5 °C</p>
 
         <div className="temperature color3"></div>
-        <p>6 – 9° Celcius</p>
+        <p>6 – 9 °C</p>
 
         <div className="temperature color4"></div>
-        <p>10 – 20° Celcius</p>
+        <p>10 – 20 °C</p>
 
         <div className="temperature color5"></div>
-        <p>More than 20° Celcius </p>
+        <p>More than 20 °C</p>
       </div>
     </div>
   );

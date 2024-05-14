@@ -1,9 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Reddit+Sans:ital,wght@0,200..900;1,200..900&display=swap");
 
+:root {
+  --color-1: #90f3ff;
+  --color-2: #afcbe3;
+  --color-3: #c99ec4;
+  --color-4: #ea5594;
+  --color-5: #fe0072;
+}
+
 * {
   font-family: "Reddit Sans", sans-serif;
   margin: 0px;
   padding: 0px;
+  color: var(--color-5);
+}
+
+h1 {
+  font-size: 55px;
+  padding-bottom: 55px;
 }
 
 p {
@@ -13,15 +27,31 @@ p {
 a {
   text-decoration: none;
 }
+body {
+  overflow: hidden;
+  height: 100vh;
+}
+main {
+  overflow-y: auto;
+  padding: 5px 20px;
+}
+.wrapper {
+  display: flex;
+  height: 100vh;
+}
 
 .header {
-  margin: 20px auto;
-  width: 55%;
+  margin: 0px auto;
+}
+
+.content {
+  padding: 0px 30px;
+  width: 80%;
+  flex: 1;
 }
 
 .container {
   margin: 30px auto;
-  width: 55%;
 }
 
 .temperature-container {
@@ -29,7 +59,6 @@ a {
   flex-wrap: wrap;
   align-items: flex-start;
   margin: 30px auto;
-  width: 55%;
 }
 
 .year {
@@ -37,23 +66,23 @@ a {
 }
 
 .color1 {
-  background-color: #90f3ff;
+  background-color: var(--color-1);
 }
 
 .color2 {
-  background-color: #afcbe3;
+  background-color: var(--color-2);
 }
 
 .color3 {
-  background-color: #c99ec4;
+  background-color: var(--color-3);
 }
 
 .color4 {
-  background-color: #ea5594;
+  background-color: var(--color-4);
 }
 
 .color5 {
-  background-color: #fe0072;
+  background-color: var(--color-5);
 }
 
 .temperature {

@@ -78,31 +78,31 @@ export default function Home() {
     means.push(mean);
   });
 
-  console.log("Means for each year:", means);
-
   return (
     <>
-      <Navigation />
-      <main>
-        <div className="header">
-          <h1 id="home">Weatherchange in Berlin</h1>
+      <div className="wrapper">
+        <Navigation />
+        <main>
+          <div className="header">
+            <h1 id="home">Weatherchange in Berlin</h1>
+          </div>
           <h4>Data from {allData.daily.time?.length} days</h4>
-        </div>
-        <div className="temperature-container">
-          {Object.keys(temperaturesByYear).map((year) => (
-            <React.Fragment key={year}>
-              <p className="year">{year} ⭢</p>
-              {temperaturesByYear[year].map((temperature, index) => (
-                <div key={index}>
-                  <Temperature temperature={temperature} />
-                </div>
-              ))}
-            </React.Fragment>
-          ))}
-        </div>
-        <Legend />
-        <Summary temperature={temperature} means={means} />
-      </main>
+          <div className="temperature-container">
+            {Object.keys(temperaturesByYear).map((year) => (
+              <React.Fragment key={year}>
+                <p className="year">{year} ⭢</p>
+                {temperaturesByYear[year].map((temperature, index) => (
+                  <div key={index}>
+                    <Temperature temperature={temperature} />
+                  </div>
+                ))}
+              </React.Fragment>
+            ))}
+          </div>
+          <Legend />
+          <Summary temperature={temperature} means={means} />
+        </main>
+      </div>
     </>
   );
 }
