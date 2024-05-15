@@ -26,6 +26,7 @@ p {
 
 a {
   text-decoration: none;
+  color: var(--color-2);
 }
 body {
   overflow: hidden;
@@ -33,6 +34,9 @@ body {
 }
 main {
   overflow-y: auto;
+}
+
+.main-content {
   padding: 5px 20px;
 }
 .wrapper {

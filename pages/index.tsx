@@ -1,3 +1,4 @@
+import Footer from "@/components/Footer/Footer";
 import Legend from "@/components/Legend/Legend";
 import Navigation from "@/components/Navigation/Navigation";
 import Summary from "@/components/Summary/Summary";
@@ -83,24 +84,27 @@ export default function Home() {
       <div className="wrapper">
         <Navigation />
         <main>
-          <div className="header">
-            <h1 id="home">Weatherchange in Berlin</h1>
+          <div className="main-content">
+            <div className="header">
+              <h1 id="home">Weatherchange in Berlin</h1>
+            </div>
+            <h4>Data from {allData.daily.time?.length} days</h4>
+            <div className="temperature-container">
+              {Object.keys(temperaturesByYear).map((year) => (
+                <React.Fragment key={year}>
+                  <p className="year">{year} ⭢</p>
+                  {temperaturesByYear[year].map((temperature, index) => (
+                    <div key={index}>
+                      <Temperature temperature={temperature} />
+                    </div>
+                  ))}
+                </React.Fragment>
+              ))}
+            </div>
+            <Legend />
+            <Summary temperature={temperature} means={means} />
           </div>
-          <h4>Data from {allData.daily.time?.length} days</h4>
-          <div className="temperature-container">
-            {Object.keys(temperaturesByYear).map((year) => (
-              <React.Fragment key={year}>
-                <p className="year">{year} ⭢</p>
-                {temperaturesByYear[year].map((temperature, index) => (
-                  <div key={index}>
-                    <Temperature temperature={temperature} />
-                  </div>
-                ))}
-              </React.Fragment>
-            ))}
-          </div>
-          <Legend />
-          <Summary temperature={temperature} means={means} />
+          <Footer />
         </main>
       </div>
     </>

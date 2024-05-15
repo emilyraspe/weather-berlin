@@ -4,6 +4,7 @@ export default function Legend() {
       <h2 id="legend">Legend</h2>
 
       <div className="legends-container">
+        <p>Each colored dot represents a single day:</p>
         <div className="temperature color1"></div>
         <p>Less than 0 °C </p>
 

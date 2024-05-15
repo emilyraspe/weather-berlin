@@ -1,0 +1,15 @@
+.summary-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 20px;
+  padding: 20px 0px;
+}
+
+.summary-text {
+  width: 50%;
+}
+.year {
+  color: var(--color-4);
+  font-size: 12px;
+  padding-right: 5px;
+}
