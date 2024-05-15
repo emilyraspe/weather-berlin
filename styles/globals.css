@@ -95,3 +95,33 @@ main {
   width: 14px;
   height: 14px;
 }
+
+@media (min-width: 1155px) {
+  .nav {
+    flex: 1 0 33%;
+  }
+}
+
+@media only screen and (max-width: 1154px) {
+  .wrapper {
+    flex-direction: column;
+  }
+
+  .nav {
+    border-right: none !important;
+    border-bottom: 1px solid var(--color-5);
+  }
+
+  h1 {
+    font-size: 30px;
+    padding: 30px 0px;
+  }
+
+  .summary-container {
+    flex-wrap: wrap !important;
+  }
+
+  .summary-text {
+    width: 100% !important;
+  }
+}
