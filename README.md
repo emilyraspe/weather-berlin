@@ -12,4 +12,3 @@ Explore the dynamic weather patterns and climate trends of Berlin from 2016 to 2
 ## Screens
 
 <img src="./public/Screen1.png" alt="Image of Website">
-<img src="./public/Mobilescreen.png" alt="Image of mobile version" width="300">
