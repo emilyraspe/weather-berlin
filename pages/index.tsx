@@ -108,10 +108,7 @@ export default function Home() {
                 <React.Fragment key={year}>
                   <p className="year">{year} ⭢</p>
                   {temperaturesByYear[Number(year)].map(
-                    (
-                      temperature,
-                      index // Add key for each temperature element
-                    ) => (
+                    (temperature, index) => (
                       <div key={index}>
                         <Temperature temperature={temperature} />
                       </div>
