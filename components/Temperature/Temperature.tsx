@@ -1,4 +1,10 @@
-export default function Temperature({ temperature }) {
+import React from "react";
+
+type TemperatureProps = {
+  temperature: number;
+};
+
+export default function Temperature({ temperature }: TemperatureProps) {
   if (temperature < 0) {
     return <div className="temperature color1"></div>;
   } else if (temperature <= 5) {
