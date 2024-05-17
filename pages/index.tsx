@@ -7,11 +7,21 @@ import { fetchWeatherApi } from "openmeteo";
 import { useState, useEffect } from "react";
 import React from "react";
 
+interface WeatherData {
+  daily: { time: Date[]; temperature2mMean: number[] };
+}
+
+interface TemperaturesByYear {
+  [year: string]: number[];
+}
+
 export default function Home() {
-  const [allData, setAllData] = useState({ daily: {} });
+  const [allData, setAllData] = useState<{
+    daily: { time: Date[]; temperature2mMean: number[] };
+  }>({ daily: { time: [], temperature2mMean: [] } });
 
   useEffect(() => {
-    async function fetch() {
+    async function fetchData() {
       const params = {
         latitude: 52.5244,
         longitude: 13.4105,
@@ -37,6 +47,9 @@ export default function Home() {
 
       const daily = response.daily()!;
 
+      // Convert Float32Array to number[]
+      const temperature2mMean = Array.from(daily.variables(0)!.valuesArray()!);
+
       const weatherData = {
         daily: {
           time: range(
@@ -44,18 +57,19 @@ export default function Home() {
             Number(daily.timeEnd()),
             daily.interval()
           ).map((t) => new Date((t + utcOffsetSeconds) * 1000)),
-          temperature2mMean: daily.variables(0)!.valuesArray()!,
+          temperature2mMean: temperature2mMean,
         },
       };
       setAllData(weatherData);
     }
-    fetch();
+    fetchData();
   }, []);
   useEffect(() => {
     console.log("Updated allData:", allData);
   }, [allData]);
 
-  const temperaturesByYear = [];
+  const temperaturesByYear: { [year: number]: number[] } = {};
+
   if (allData.daily.time && allData.daily.temperature2mMean) {
     allData.daily.time.forEach((time, index) => {
       const year = time.getFullYear();
@@ -68,11 +82,11 @@ export default function Home() {
 
   const temperature = allData.daily.temperature2mMean;
 
-  const means = [];
+  const means: number[] = [];
 
-  temperaturesByYear.forEach((yearTemperatures) => {
+  Object.values(temperaturesByYear).forEach((yearTemperatures) => {
     let sum = 0;
-    yearTemperatures.forEach((temperature) => {
+    yearTemperatures.forEach((temperature: number) => {
       sum += temperature;
     });
     const mean = sum / yearTemperatures.length;
@@ -93,16 +107,21 @@ export default function Home() {
               {Object.keys(temperaturesByYear).map((year) => (
                 <React.Fragment key={year}>
                   <p className="year">{year} ⭢</p>
-                  {temperaturesByYear[year].map((temperature, index) => (
-                    <div key={index}>
-                      <Temperature temperature={temperature} />
-                    </div>
-                  ))}
+                  {temperaturesByYear[Number(year)].map(
+                    (
+                      temperature,
+                      index // Add key for each temperature element
+                    ) => (
+                      <div key={index}>
+                        <Temperature temperature={temperature} />
+                      </div>
+                    )
+                  )}
                 </React.Fragment>
               ))}
             </div>
             <Legend />
-            <Summary temperature={temperature} means={means} />
+            <Summary means={means} />
           </div>
           <Footer />
         </main>

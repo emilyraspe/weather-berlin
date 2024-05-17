@@ -1,10 +1,10 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
-interface means {
-  means?: any;
+interface Means {
+  means?: number[];
 }
 
-export default function Summary({ means }: means) {
+export default function Summary({ means }: Means) {
   const years = [2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023];
   return (
     <div className="container">
@@ -15,7 +15,7 @@ export default function Summary({ means }: means) {
           second warmest year in Germany since records began in 1881. In the
           preceding years from 2011 to 2020, temperatures in Germany have risen
           significantly. This illustrates the rapid temperature increase of
-          recent decades. (Auswirkungen Des Klimawandels, o. D.) <br />
+          recent decades. (Auswirkungen Des Klimawandels, o. D.) <br />
           It's important to note that long-term trends are necessary to
           demonstrate climate change. (Höke, 2023) The chosen 8 years here are
           just an example of how temperature fluctuations can be visually
@@ -23,11 +23,13 @@ export default function Summary({ means }: means) {
         </p>
         <div className="average-temp">
           <h5>Average temperature for each year</h5>
-          {means.map((mean, index) => (
-            <span key={index} className="year">
-              <strong>{years[index]}:</strong> {Math.round(mean * 100) / 100} °C
-            </span>
-          ))}
+          {means &&
+            means.map((mean, index) => (
+              <span key={index} className="year">
+                <strong>{years[index]}:</strong> {Math.round(mean * 100) / 100}{" "}
+                °C
+              </span>
+            ))}
         </div>
       </div>
     </div>
